@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gamepad Tester - Premium real-time gamepad detection and testing. Test your controllers with live visual feedback, button presses, analog sticks, and vibration support.">
+    <meta name="keywords" content="gamepad, controller, tester, gamepad api, testing, xbox, playstation">
+    <meta name="author" content="Gamepad Tester">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-start-url" content="/">
+    <meta name="apple-mobile-web-app-title" content="Gamepad Tester">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Gamepad Tester - Premium Real-Time Controller Testing">
+    <meta property="og:description" content="Test your gamepads and controllers in real-time with visual feedback, button detection, and vibration support.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gamepad-tester.vercel.app">
+    <meta property="og:image" content="https://gamepad-tester.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gamepad Tester - Premium Real-Time Controller Testing">
+    <meta name="twitter:description" content="Test your gamepads and controllers in real-time with visual feedback.">
+
+    <title>Gamepad Tester - Premium Real-Time Controller Testing</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/styles/main.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100'/><circle cx='50' cy='50' r='40' fill='%23ffd700'/></svg>">
+</head>
+<body>
+    <!-- Main Container -->
+    <main class="container" role="main">
+        <!-- Header -->
+        <header class="header" role="banner">
+            <h1 class="title">Gamepad Tester</h1>
+            <p class="subtitle">Real-time controller detection and testing</p>
+        </header>
+
+        <!-- Status Section -->
+        <section class="status-section" aria-label="Gamepad Status">
+            <div class="status-card glass-effect">
+                <div class="status-header">
+                    <h2 class="status-title">Controller Status</h2>
+                    <div class="status-indicator" id="statusIndicator" aria-live="polite" aria-label="Controller connection status">
+                        <span class="status-dot"></span>
+                        <span class="status-text" id="statusText">No Controller Connected</span>
+                    </div>
+                </div>
+                <div class="status-content" id="statusContent">
+                    <p class="no-controller-message">
+                        Connect a gamepad to get started. Your device will be automatically detected.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Controller Info Section -->
+        <section class="info-section" id="infoSection" aria-label="Controller Information" style="display: none;">
+            <div class="info-grid">
+                <div class="info-card glass-effect">
+                    <label class="info-label" for="controllerName">Controller Name</label>
+                    <div class="info-value" id="controllerName" role="status">–</div>
+                </div>
+                <div class="info-card glass-effect">
+                    <label class="info-label" for="controllerIndex">Index</label>
+                    <div class="info-value" id="controllerIndex" role="status">–</div>
+                </div>
+                <div class="info-card glass-effect">
+                    <label class="info-label" for="buttonCount">Buttons</label>
+                    <div class="info-value" id="buttonCount" role="status">–</div>
+                </div>
+                <div class="info-card glass-effect">
+                    <label class="info-label" for="axesCount">Axes</label>
+                    <div class="info-value" id="axesCount" role="status">–</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Controller Visualization -->
+        <section class="controller-section" id="controllerSection" aria-label="Controller Visualization" style="display: none;">
+            <h2 class="section-title">Live Controller Feedback</h2>
+            <div class="controller-container glass-effect">
+                <div id="svgContainer" class="svg-container" aria-label="Real-time controller diagram">
+                    <!-- SVG will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons Section -->
+        <section class="buttons-section" id="buttonsSection" aria-label="Button Inputs" style="display: none;">
+            <h2 class="section-title">Button Inputs</h2>
+            <div class="buttons-grid" id="buttonsGrid" role="region" aria-label="Button states">
+                <!-- Buttons will be generated dynamically -->
+            </div>
+        </section>
+
+        <!-- Axes Section -->
+        <section class="axes-section" id="axesSection" aria-label="Analog Inputs" style="display: none;">
+            <h2 class="section-title">Analog Sticks & Triggers</h2>
+            <div class="axes-grid" id="axesGrid" role="region" aria-label="Axes and stick values">
+                <!-- Axes will be generated dynamically -->
+            </div>
+        </section>
+
+        <!-- Vibration Section -->
+        <section class="vibration-section" id="vibrationSection" aria-label="Vibration Controls" style="display: none;">
+            <h2 class="section-title">Vibration Testing</h2>
+            <div class="vibration-controls glass-effect">
+                <div class="vibration-button-group">
+                    <button class="btn btn-primary" id="vibrateLightBtn" aria-label="Test light vibration">
+                        Light Vibration
+                    </button>
+                    <button class="btn btn-primary" id="vibrateMediumBtn" aria-label="Test medium vibration">
+                        Medium Vibration
+                    </button>
+                    <button class="btn btn-primary" id="vibrateStrongBtn" aria-label="Test strong vibration">
+                        Strong Vibration
+                    </button>
+                </div>
+                <div class="vibration-feedback" id="vibrationFeedback" aria-live="polite">
+                    <p class="vibration-status" id="vibrationStatus">Ready to test</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" role="contentinfo">
+            <p>Gamepad Tester © 2026 | Built with HTML5, CSS3 & Vanilla JavaScript</p>
+            <p class="footer-hint">Supports Gamepad API - Chrome, Firefox, Edge, Safari</p>
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="assets/js/gamepad-manager.js"></script>
+    <script src="assets/js/controller-renderer.js"></script>
+    <script src="assets/js/ui-manager.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
